@@ -1,0 +1,5 @@
+services:
+  newsapp:
+    image: news-app-image
+    ports: 
+      - "3000:3000"
