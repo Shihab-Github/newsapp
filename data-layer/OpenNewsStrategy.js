@@ -20,7 +20,7 @@ export class OpenNewsStrategy {
             };
             articles.push(article);
           }
-          console.log("opennews: ", articles);
+
           resolve(articles);
         })
         .catch((err) => reject(err));

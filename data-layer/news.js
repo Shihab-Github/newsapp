@@ -2,9 +2,12 @@ import { NewsContext } from "./NewsContext";
 import { GuardianStrategy } from "./GuardianStrategy";
 import { NewYorkTimesStrategy } from "./NewYorkTimesStrategy";
 import { OpenNewsStrategy } from "./OpenNewsStrategy";
+import { Categories } from "./constants";
 
-export async function getAggregatedArticles() {
+export async function getAggregatedArticles(params) {
   try {
+    console.log("params: ", params);
+
     const newsContext = new NewsContext(new GuardianStrategy());
     const guardianNews = await newsContext.fetchArticles();
 
