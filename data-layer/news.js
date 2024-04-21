@@ -5,21 +5,18 @@ import { OpenNewsStrategy } from "./OpenNewsStrategy";
 
 export async function getAggregatedArticles() {
   try {
-    const articles = [];
-
     const newsContext = new NewsContext(new GuardianStrategy());
-    let results = await newsContext.fetchArticles();
-    articles.push(...results);
+    const guardianNews = await newsContext.fetchArticles();
 
     newsContext.setStrategy(new NewYorkTimesStrategy());
-    results = await newsContext.fetchArticles();
-    articles.push(...results);
+    const nytNews = await newsContext.fetchArticles();
 
     newsContext.setStrategy(new OpenNewsStrategy());
-    results = await newsContext.fetchArticles();
-    articles.push(...results);
+    const openNews = await newsContext.fetchArticles();
 
-    return results;
+    const articles = [...guardianNews, ...nytNews, ...openNews];
+
+    return articles;
   } catch (err) {
     console.log("err: ", err);
   }

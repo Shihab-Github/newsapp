@@ -20,7 +20,6 @@ export class NewYorkTimesStrategy {
             };
             articles.push(article);
           }
-
           return resolve(articles);
         })
         .catch((err) => reject(err));

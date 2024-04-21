@@ -16,11 +16,11 @@ export class OpenNewsStrategy {
               id: i + 1,
               headline: item.title,
               thumbnail: item.urlToImage,
-              source: item.source.main,
+              source: item.source.name,
             };
             articles.push(article);
           }
-
+          console.log("opennews: ", articles);
           resolve(articles);
         })
         .catch((err) => reject(err));
