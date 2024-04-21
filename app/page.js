@@ -13,11 +13,9 @@ export default function Home() {
     },
   });
 
-  console.log("newses: ", newses);
-
   return (
     <main>
-      <div className="text-2xl">Hello World</div>
+      <div className="text-2xl">{isLoading ? "loading" : "News page"}</div>
     </main>
   );
 }

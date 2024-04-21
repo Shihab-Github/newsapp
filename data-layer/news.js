@@ -1,21 +1,24 @@
-import axios from "axios";
-import { GUARDIAN_API } from "./API";
-
-function getArticlesFromGuardian() {
-  return new Promise((resolve, reject) => {
-    let url = `${GUARDIAN_API}/search?q=media&show-elements=image&api-key=${process.env.NEXT_PUBLIC_GUARDIAN_API_KEY}`;
-
-    axios
-      .get(url)
-      .then((response) => resolve(response.data))
-      .catch((err) => reject(err));
-  });
-}
+import { NewsContext } from "./NewsContext";
+import { GuardianStrategy } from "./GuardianStrategy";
+import { NewYorkTimesStrategy } from "./NewYorkTimesStrategy";
+import { OpenNewsStrategy } from "./OpenNewsStrategy";
 
 export async function getAggregatedArticles() {
   try {
-    const results = await Promise.all([getArticlesFromGuardian()]);
-    console.log("results: ", results);
+    const articles = [];
+
+    const newsContext = new NewsContext(new GuardianStrategy());
+    let results = await newsContext.fetchArticles();
+    articles.push(...results);
+
+    newsContext.setStrategy(new NewYorkTimesStrategy());
+    results = await newsContext.fetchArticles();
+    articles.push(...results);
+
+    newsContext.setStrategy(new OpenNewsStrategy());
+    results = await newsContext.fetchArticles();
+    articles.push(...results);
+
     return results;
   } catch (err) {
     console.log("err: ", err);
