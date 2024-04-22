@@ -7,7 +7,7 @@ export class NewsContext {
     this.strategy = strategy;
   }
 
-  fetchArticles() {
-    return this.strategy.fetch();
+  fetchArticles(searchStr = "media") {
+    return this.strategy.fetch(searchStr);
   }
 }

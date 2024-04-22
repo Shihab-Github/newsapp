@@ -6,18 +6,19 @@ import { Categories } from "./constants";
 
 export async function getAggregatedArticles(params) {
   try {
-    console.log("params: ", params);
+    const idx = params.queryKey[1].categoryIdx;
+    const searchStr = Categories[idx];
 
     const newsContext = new NewsContext(new GuardianStrategy());
-    const guardianNews = await newsContext.fetchArticles();
+    const guardianNews = await newsContext.fetchArticles(searchStr);
 
     newsContext.setStrategy(new NewYorkTimesStrategy());
-    const nytNews = await newsContext.fetchArticles();
+    const nytNews = await newsContext.fetchArticles(searchStr);
 
     newsContext.setStrategy(new OpenNewsStrategy());
-    const openNews = await newsContext.fetchArticles();
+    const openNews = await newsContext.fetchArticles(searchStr);
 
-    const articles = [...guardianNews, ...nytNews, ...openNews];
+    const articles = [...openNews, ...guardianNews, ...nytNews];
 
     return articles;
   } catch (err) {

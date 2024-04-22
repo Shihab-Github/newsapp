@@ -1,5 +1,13 @@
 services:
   newsapp:
-    image: news-app-image
-    ports: 
-      - "3000:3000"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: npm run start
+    env_file:
+      - .env.local
+    volumes:
+      - .:/newsapp
+      - /app/node_modules
+    
+    
