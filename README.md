@@ -4,7 +4,18 @@
  - Nextjs 14
  - React Query for data fetching, caching and automatic data fetching
  - Shadcn UI for UI components
- - Tailwind CSS 
+ - Tailwind CSS
+
+## Prerequisites
+In order to successfully run the app, we need api keys from The Guardian, The NewYork Times and OpenNews API. I'd suggest to use the .env.local file I have attached to the email to reduce efforts. The .env.local file must be present in the application directory root. The .env.local file should look like below,
+
+```
+NEXT_PUBLIC_OPEN_NEWS_API_KEY=<API_KEY>
+NEXT_PUBLIC_NYT_API_KEY=<API_KEY>
+NEXT_PUBLIC_GUARDIAN_API_KEY=<API_KEY>
+```
+
+
 
 ## Getting Started
 
