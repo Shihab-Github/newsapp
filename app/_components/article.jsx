@@ -5,13 +5,28 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 export default function Article({ thumbnail, source, headline, starred }) {
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(null);
+  const [disLiked, setDisLiked] = useState(null);
 
   const onLikeChage = () => {
     if (!liked) {
       setLiked(true);
+      if (disLiked !== null) {
+        onDisLikeChage();
+      }
     } else {
       setLiked(false);
+    }
+  };
+
+  const onDisLikeChage = () => {
+    if (!disLiked) {
+      setDisLiked(true);
+      if (liked !== null) {
+        onLikeChage();
+      }
+    } else {
+      setDisLiked(false);
     }
   };
 
@@ -46,8 +61,12 @@ export default function Article({ thumbnail, source, headline, starred }) {
                 strokeWidth={1.25}
               />
             </div>
-            <div className=" cursor-pointer">
-              <ThumbsDown size={18} strokeWidth={1.25} />
+            <div onClick={onDisLikeChage} className=" cursor-pointer">
+              <ThumbsDown
+                fill={disLiked ? "#FFF" : "rgba(0,0,0,0)"}
+                size={18}
+                strokeWidth={1.25}
+              />
             </div>
           </div>
         </div>
